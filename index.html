@@ -1,15 +1,276 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Metla-blend</title>
-    <link rel="stylesheet" href="./assets/css/main.css">
-    <link rel="icon" href="icon.png" type="image/x-icon">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>metla -blend</title>
+  <link rel="icon" href="assets/icon.png" type="image/x-icon" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap&subset=cyrillic" rel="stylesheet" />
+ <style>
+  :root {
+    --bg-color: #0b0c10;
+    --text-color: #ffffff;
+    --accent-color: #536dff;
+    --font-main: 'Montserrat', sans-serif;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: var(--font-main);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+
+  header {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.8);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid #003cff33;
+  }
+
+  header h1 {
+    color: var(--accent-color);
+    font-size: 26px;
+    text-shadow: 0 0 15px var(--accent-color), 0 0 30px var(--accent-color);
+  }
+
+  nav a {
+    color: var(--accent-color);
+    margin-left: 20px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+    text-shadow: 0 0 10px var(--accent-color);
+  }
+
+  nav a:hover {
+    color: #fff;
+    text-shadow: 0 0 20px var(--accent-color);
+  }
+
+  main {
+    padding-top: 80px; /* чтобы контент не прятался под фиксированной шапкой */
+  }
+
+  .hero, .section {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 60px 20px 60px;
+    text-align: center;
+  }
+
+  .hero img.clickable {
+    border-radius: 20px;
+    box-shadow:
+      0 0 8px #536dff,
+      0 0 20px #536dff,
+      0 0 30px #536dff;
+    max-width: 100%;
+    height: auto;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    display: block;
+    margin: 0 auto 20px;
+  }
+  .hero img.clickable:active,
+  .hero img.clickable.animating {
+    animation: pulseScale 0.6s ease forwards;
+  }
+
+  @keyframes pulseScale {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+  }
+
+  .hero h2 {
+    font-size: 48px;
+    color: var(--accent-color);
+    text-shadow: 0 0 25px var(--accent-color), 0 0 50px var(--accent-color);
+    margin-top: 10px;
+  }
+
+  .hero p, .section p {
+    font-size: 18px;
+    margin-top: 20px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+  }
+
+  h2.section-title {
+    font-size: 32px;
+    color: var(--accent-color);
+    margin-bottom: 30px;
+    text-shadow: 0 0 15px var(--accent-color), 0 0 30px var(--accent-color);
+  }
+
+  .section img {
+    border-radius: 20px;
+    box-shadow:
+      0 0 8px #536dff,
+      0 0 20px #536dff,
+      0 0 30px #536dff;
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto 30px;
+  }
+
+ .icons-links {
+  display: flex;
+  justify-content: center;
+  gap: 15px; /* расстояние между иконками */
+  flex-wrap: nowrap; /* чтобы всё было в одной строке */
+  margin-top: 20px;
+}
+
+.icons-links a img {
+  width: 32px;
+  height: 32px;
+  display: block;
+  border-radius: 0; /* без скругления */
+  filter: none !important; /* без неона */
+  box-shadow: none !important; /* без теней */
+  transition: transform 0.25s ease;
+}
+
+.icons-links a:hover img {
+  transform: scale(1.1);
+}
+
+
+  footer {
+    text-align: center;
+    padding: 20px;
+    border-top: 1px solid #222;
+    font-size: 14px;
+    color: #999;
+  }
+
+  /* Плашка всплывающая */
+  #popupMessage {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: rgba(0, 229, 255, 0.15);
+    backdrop-filter: blur(6px);
+    border-radius: 12px;
+    padding: 15px 25px;
+    color: var(--accent-color);
+    font-weight: 600;
+    font-size: 16px;
+    box-shadow: 0 0 10px var(--accent-color);
+    display: none;
+    z-index: 10000;
+    user-select: none;
+  }
+  #popupMessage a {
+    color: var(--accent-color);
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  #popupMessage a:hover {
+    color: #536dff;
+  }
+</style>
 </head>
 <body>
-    <div class="presentrender">
-        <img src="assets/img/presentrendermetla.svg" alt="">
-    </div>    
+
+<header>
+  <h1>Метла</h1>
+  <nav>
+    <a href="#about">Обо мне</a>
+    <a href="#contacts">Контакты</a>
+    <a href="https://t.me/MeTLAaaaaa" target="_blank" rel="noopener noreferrer">Связаться со мной</a>
+    <a href="#support">Донат</a>
+  </nav>
+</header>
+
+<main>
+  <section class="hero">
+    <img src="assets/me.png" alt="Метла" class="clickable" id="meImage" />
+    <h2>Привет, я Метла</h2>
+    <p>3D-художник. Делаю рендеры, анимации и карточки по Minecraft в Blender. Умею в пиксель-арт и коддинг.</p>
+  </section>
+
+  <section id="about" class="section">
+    <img src="assets/contacts.jpg" alt="Обо мне" />
+    <h2 class="section-title">Обо мне</h2>
+    <p>Меня зовут Метла. Я создаю 3D-арт, рендеры, анимации, карточки и ресурсы по Minecraft. Работаю в Blender. Также занимаюсь пиксель-артом и программированием.</p>
+  </section>
+
+  <section id="contacts" class="section">
+    <h2 class="section-title">Контакты</h2>
+    <div class="icons-links">
+      <a href="https://www.youtube.com/@Metla_m" target="_blank" title="YouTube" rel="noopener noreferrer">
+        <img src="https://cdn.simpleicons.org/youtube/ffffff" alt="YouTube" />
+      </a>
+      <a href="https://t.me/MEtla_lbe" target="_blank" title="Telegram" rel="noopener noreferrer">
+        <img src="https://cdn.simpleicons.org/telegram/ffffff" alt="Telegram" />
+      </a>
+      <a href="https://github.com/MetlaYT" target="_blank" title="GitHub" rel="noopener noreferrer">
+        <img src="https://cdn.simpleicons.org/github/ffffff" alt="GitHub" />
+      </a>
+      <a href="https://modrinth.com/user/Metla_" target="_blank" title="Modrinth" rel="noopener noreferrer">
+        <img src="assets/modrinth.webp" alt="Modrinth" width="32" height="32" />
+      </a>
+      <a href="https://discord.gg/gYnVrn8p" target="_blank" title="Discord" rel="noopener noreferrer">
+        <img src="https://cdn.simpleicons.org/discord/ffffff" alt="Discord" />
+      </a>
+    </div>
+  </section>
+
+  <section id="support" class="section">
+    <h2 class="section-title">Поддержать</h2>
+    <p>Если хочешь поддержать мои проекты — можешь задонатить:</p>
+    <p><strong>Donation Alerts:</strong> <em>https://www.donationalerts.com/r/metla_</em></p>
+  </section>
+</main>
+
+<footer>
+  <p>© metla-blend.ru Все права защищены.</p>
+</footer>
+
+<div id="popupMessage">
+  Привет <a href="https://t.me/domachniyohag" target="_blank" rel="noopener noreferrer">Домашний очаг</a>
+</div>
+
+<script>
+  const meImage = document.getElementById('meImage');
+  const popup = document.getElementById('popupMessage');
+
+  meImage.addEventListener('click', () => {
+    // Запускаем анимацию на картинке
+    meImage.classList.add('animating');
+
+    // Показываем плашку
+    popup.style.display = 'block';
+
+    // Через 10 секунд скрываем плашку
+    setTimeout(() => {
+      popup.style.display = 'none';
+    }, 10000);
+
+    // Убираем класс анимации через 600ms, чтобы можно было кликать повторно
+    setTimeout(() => {
+      meImage.classList.remove('animating');
+    }, 600);
+  });
+</script>
+
 </body>
 </html>
