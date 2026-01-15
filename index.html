@@ -41,6 +41,35 @@
       scroll-behavior: smooth;
     }
 
+    /* Console Button */
+    .console-button {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 60px;
+      height: 60px;
+      background: var(--accent-gradient);
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-glow);
+      transition: all 0.3s ease;
+      z-index: 999;
+      font-size: 28px;
+    }
+
+    .console-button:hover {
+      transform: scale(1.1) translateY(-4px);
+      box-shadow: 0 0 40px rgba(83, 109, 255, 0.5);
+    }
+
+    .console-button:active {
+      transform: scale(0.95);
+    }
+
     /* Header */
     header {
       position: fixed;
@@ -510,6 +539,14 @@
       .hero {
         padding: 60px 0 80px;
       }
+
+      .console-button {
+        width: 50px;
+        height: 50px;
+        bottom: 20px;
+        right: 20px;
+        font-size: 24px;
+      }
     }
 
     @media (max-width: 480px) {
@@ -614,7 +651,7 @@
               <img src="assets/contacts.jpg" alt="О работе" />
             </div>
             <div class="about-text">
-              <h3>Информация </h3>
+              <h3>Информация</h3>
               <p>
                 Меня зовут Метла. Я создаю 3D-арт, рендеры, анимации, карточки и прочий контент по Minecraft. 
                 Работаю в Blender. Также занимаюсь пиксель-артом и программированием.
@@ -679,7 +716,15 @@
     Привет <a href="https://t.me/domachniyohag" target="_blank" rel="noopener noreferrer">Домашний очаг</a>! 👋
   </div>
 
+  <button class="console-button" id="consoleBtn" title="Открыть Claude">⌨️</button>
+
   <script>
+    // Console button functionality
+    const consoleBtn = document.getElementById('consoleBtn');
+    consoleBtn.addEventListener('click', () => {
+      window.open('https://metlayt.github.io/portfolio.github.io/', '_blank');
+    });
+
     // Profile image click animation
     const profileImage = document.getElementById('profileImage');
     const popup = document.getElementById('popup');
